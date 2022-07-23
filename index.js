@@ -1,13 +1,7 @@
 const express = require("express");
 const app = express();
 app.use(express.json())
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-const environment = process.env.NODE_ENV || "development";
-const configuration = require("./knexfile")[environment];
-const database = require("knex")(configuration); // connect to DB via knex using env's settings
-console.log(database);
+const database = require("./db");
 
 database.raw("select 1+1 as result").then(function () {
   console.log("connected to db");
