@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
 const app = express();
 app.use(express.json());
 const database = require("../db");

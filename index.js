@@ -2,18 +2,19 @@ const express = require("express");
 const app = express();
 app.use(express.json())
 const database = require("./db");
+app.use((req, res, next) => {
+  console.log('Time:', Date.now())
+  next()
+})
 
-database.raw("select 1+1 as result").then(function () {
-  console.log("connected to db");
-});
-console.log("HELLO" + process.env.PORT);
 const port = 3000;
 
-app.get("/", (req, res) => {
+app.get("/", (req, res, next) => {
   res.send("Hello World!");
+  next();
 });
 
-const usersRouter = require("./routes/users");
+const usersRouter = require("./routes/admin");
 
 app.use("/admin", usersRouter);
 
